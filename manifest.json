@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "图像验证码AI一键识别",
+    "description": "右键选择图片立即识别",
+    "version": "1.1",
+    "icons": {
+        "16": "image/icon.png",
+        "48": "image/icon.png",
+        "128": "image/icon.png"
+    },
+    "action": {
+        "default_icon": "image/icon.png",
+        "default_title": "图像验证码AI一键识别",
+        "default_popup": "index.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "notifications",
+        "contextMenus"
+    ]
+}
