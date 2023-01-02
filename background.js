@@ -13,8 +13,8 @@ chrome.contextMenus.create({
 // 监听右键菜单点击事件
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
     if (info.menuItemId != '') {
-        console.log('info: ' + JSON.stringify(info));
-        console.log('右键菜单点击事件: ' + info.menuItemId);
+        // console.log('info: ' + JSON.stringify(info));
+        // console.log('右键菜单点击事件: ' + info.menuItemId);
     }
     if (info.menuItemId == 'my-custom-menu-ai') {
         // 在这里执行你想要的操作
@@ -125,8 +125,9 @@ var uploadImg = async function (src) {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             var tab = tabs[0];
             chrome.tabs.sendMessage(tab.id, { type: 'copy', data: res }, function (response) {
-                // console.log('f' + response);
-                console.log(arguments, chrome.runtime.lastError);
+                // console.log('content-script.js收到消息了');
+                console.log(response);
+                // console.log(arguments, chrome.runtime.lastError);//我是content-script.js，我已收到你的消息：这是content-script.js发给我的消息
             });
         });
     }).catch(err => {
