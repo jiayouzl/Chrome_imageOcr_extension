@@ -1,18 +1,22 @@
 //https://juejin.cn/post/7000727054404550663
 //https://account.daocloud.io/signup
 
-console.log("Starting background-devtools");
+console.log('Starting background-devtools');
 
 // 注册右键菜单
 chrome.contextMenus.create({
-    id: "my-custom-menu-ai",
-    title: "识别选择的验证码",
-    contexts: ["image"],
+    id: 'my-custom-menu-ai',
+    title: '识别选择的验证码',
+    contexts: ['image'],
 });
 
 // 监听右键菜单点击事件
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
-    if (info.menuItemId == "my-custom-menu-ai") {
+    if (info.menuItemId != '') {
+        console.log('info: ' + JSON.stringify(info));
+        console.log('右键菜单点击事件: ' + info.menuItemId);
+    }
+    if (info.menuItemId == 'my-custom-menu-ai') {
         // 在这里执行你想要的操作
         // console.log(info.srcUrl);
         uploadImg(downloadImg(info.srcUrl))
@@ -65,7 +69,7 @@ var downloadImg = function (src) {
                 uBuffer[i] = code.charCodeAt(i) & 0xff
             }
             filename = 'test.png'
-            // filename = prompt("请输入文件名", filename)
+            // filename = prompt('请输入文件名', filename)
             // if (!filename) {
             //     return reject('取消上传')
             // }
@@ -102,10 +106,29 @@ var uploadImg = async function (src) {
         }
     }).then(res => {
         console.log('识别结果:' + res);
-        // //复制到剪切板
-        // navigator.clipboard.writeText(res).then(function () {
-        //     console.log('复制成功');
-        // });
+        //显示通知
+        chrome.notifications.create(null, {
+            type: 'basic',
+            iconUrl: 'image/icon.png',
+            title: '图像验证码AI一键识别',
+            message: '识别结果：' + res,
+        });
+        //语音播报
+        chrome.tts.speak('识别结果：' + res, {
+            lang: 'zh-CN', // 语言 (可选)
+            gender: 'female', // 将声音设置为女性声音 (可选)
+            rate: 0.8 // 语速 (可选)
+        });
+        console.log('复制方法');
+        //复制识别结果至剪切板
+        //向content-script.js发送消息
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            var tab = tabs[0];
+            chrome.tabs.sendMessage(tab.id, { type: 'copy', data: res }, function (response) {
+                // console.log('f' + response);
+                console.log(arguments, chrome.runtime.lastError);
+            });
+        });
     }).catch(err => {
         console.log('发生错误:' + err);
     })
