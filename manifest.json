@@ -19,7 +19,8 @@
     "permissions": [
         "notifications",
         "contextMenus",
-        "tts"
+        "tts",
+        "storage"
     ],
     "content_scripts": [
         {
