@@ -143,7 +143,8 @@ var uploadImg = async function (src) {
     const formData = new FormData()
     formData.append('image', await src)
 
-    fetch('http://192.168.5.101:9898/ocr/file', {
+    // fetch('http://192.168.5.101:9898/ocr/file', {
+    fetch('http://120.48.9.236:9898/ocr/file', {
         method: 'POST',
         body: formData,
     }).then(res => {
