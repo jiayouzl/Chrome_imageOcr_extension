@@ -153,16 +153,17 @@ var uploadImg = async function (src) {
             console.log('请求失败');
         }
     }).then(res => {
-        console.log('识别结果:' + res);
+        var result = res.toUpperCase();
+        console.log('识别结果:' + result);
         //显示通知
         chrome.notifications.create(null, {
             type: 'basic',
             iconUrl: 'image/icon.png',
             title: '图像验证码AI一键识别',
-            message: '识别结果：' + res + '已复制到剪切板。',
+            message: '识别结果：' + result + '已复制到剪切板。',
         });
         //语音播报
-        // chrome.tts.speak('识别结果：' + res, {
+        // chrome.tts.speak('识别结果：' + result, {
         //     lang: 'zh-CN', // 语言 (可选)
         //     rate: 0.8 // 语速 (可选)
         // });
@@ -171,7 +172,7 @@ var uploadImg = async function (src) {
         //向content-script.js发送消息
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             var tab = tabs[0];
-            chrome.tabs.sendMessage(tab.id, { type: 'copy', data: res }, function (response) {
+            chrome.tabs.sendMessage(tab.id, { type: 'copy', data: result }, function (response) {
                 // console.log('content-script.js收到消息了');
                 console.log(response);
                 // console.log(arguments, chrome.runtime.lastError);//我是content-script.js，我已收到你的消息：这是content-script.js发给我的消息
