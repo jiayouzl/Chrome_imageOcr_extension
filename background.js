@@ -1,4 +1,3 @@
-//https://juejin.cn/post/7000727054404550663
 //https://account.daocloud.io/signup
 
 console.log('Starting background-devtools');
