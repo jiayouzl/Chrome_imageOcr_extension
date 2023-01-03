@@ -3,26 +3,26 @@
 
 console.log('Starting background-devtools');
 
-//读取本地存储
-chrome.storage.local.get(['data'], function (result) {
-    console.log('当前值为：' + result.data);
-});
-//写入本地存储
-chrome.storage.local.set({ data: 'test' }, function () {
-    console.log('写入成功');
-});
-//读取本地存储
-chrome.storage.local.get(['data'], function (result) {
-    console.log('当前值为：' + result.data);
-});
-//删除本地存储
-chrome.storage.local.remove(['data'], function () {
-    console.log('删除成功');
-});
-//读取本地存储
-chrome.storage.local.get(['data'], function (result) {
-    console.log('当前值为：' + result.data);
-});
+// //读取本地存储
+// chrome.storage.local.get(['data'], function (result) {
+//     console.log('当前值为：' + result.data);
+// });
+// //写入本地存储
+// chrome.storage.local.set({ data: 'test' }, function () {
+//     console.log('写入成功');
+// });
+// //读取本地存储
+// chrome.storage.local.get(['data'], function (result) {
+//     console.log('当前值为：' + result.data);
+// });
+// //删除本地存储
+// chrome.storage.local.remove(['data'], function () {
+//     console.log('删除成功');
+// });
+// //读取本地存储
+// chrome.storage.local.get(['data'], function (result) {
+//     console.log('当前值为：' + result.data);
+// });
 
 // 注册右键菜单
 chrome.contextMenus.create({
@@ -31,27 +31,27 @@ chrome.contextMenus.create({
     contexts: ['image'],
 });
 
-//创建多级菜单
-chrome.contextMenus.create({
-    id: 'my-custom-menu-ai-1',
-    title: '识别',
-    contexts: ['image'],
-    parentId: 'my-custom-menu-ai'
-});
-//创建分离线
-chrome.contextMenus.create({
-    id: 'my-custom-menu-ai-3',
-    type: 'separator',
-    contexts: ['image'],
-    parentId: 'my-custom-menu-ai'
-});
-//创建多级菜单
-chrome.contextMenus.create({
-    id: 'my-custom-menu-ai-2',
-    title: '官方网站',
-    contexts: ['image'],
-    parentId: 'my-custom-menu-ai'
-});
+// //创建多级菜单
+// chrome.contextMenus.create({
+//     id: 'my-custom-menu-ai-1',
+//     title: '识别',
+//     contexts: ['image'],
+//     parentId: 'my-custom-menu-ai'
+// });
+// //创建分离线
+// chrome.contextMenus.create({
+//     id: 'my-custom-menu-ai-3',
+//     type: 'separator',
+//     contexts: ['image'],
+//     parentId: 'my-custom-menu-ai'
+// });
+// //创建多级菜单
+// chrome.contextMenus.create({
+//     id: 'my-custom-menu-ai-2',
+//     title: '官方网站',
+//     contexts: ['image'],
+//     parentId: 'my-custom-menu-ai'
+// });
 
 // 监听右键菜单点击事件
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
@@ -159,7 +159,7 @@ var uploadImg = async function (src) {
             type: 'basic',
             iconUrl: 'image/icon.png',
             title: '图像验证码AI一键识别',
-            message: '识别结果：' + res,
+            message: '识别结果：' + res + '已复制到剪切板。',
         });
         //语音播报
         // chrome.tts.speak('识别结果：' + res, {
